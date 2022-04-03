@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>CSS Tester</title>
+        <script src="./jquery.min.js"></script>
+        <link rel="stylesheet" href="./ir-black.min.css">
+        <script src="./highlight.min.js"></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#apply').click(function() {
+                    if ($('#selector').val().trim() != '') {
+                        var style = $('<style id="new"> aside ' + $('#selector').val() + ' { background-color: yellow; }</style>');
+                        $('html > head').append(style);
+                    }
+                });
+                $('#selector').on('keypress',function(e) {
+                    if(e.which == 13) {
+                        $('#apply').click();
+                    }
+                });
+                $('#reset').click(function() {
+                    $('#selector').val('');
+                    $('#new').remove();
+                    //location.reload();
+                });
+                $('section').text($('aside').html());
+                document.querySelectorAll('section').forEach((el) => {
+                    hljs.highlightElement(el);
+                });
+            });
+        </script>
+        <style type="text/css">
+            header {
+                text-align: center;
+                padding-bottom: 1em;
+                border-bottom: 1px solid black;
+            }
+            main {
+                width: 100%;
+                display: flex;
+                justify-content: space-around;
+            }
+            section, aside {
+                padding: 0 1%;
+                flex-grow: 1;
+            }
+            section {
+                white-space: pre;
+                border-right: 1px solid black;
+                font-family: 'Courier New', monospace;
+            }
+            input, button, header {
+                font-size: 1.2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <input placeholder="Selector" type="text" id="selector" /> { background-color: yellow; }
+            <button id="apply">Apply Test</button>
+            <button id="reset">Reset</button>
+        </header>
+        <main>
+            <section>
+                
+            </section>
+            <aside>
+<div>
+    <nav>
+        <ul>
+            <li>
+                <a href="https://www.birzeit.edu">Birzeit University</a>
+            </li>
+            <li>
+                <a href="https://new-url.com">Unvisited website</a>
+            </li>
+            <li>
+                <a href="https://another-new.com">Another unvisited</a>
+            </li>
+        </ul>
+    </nav>
+    <h3>This was updated on <time>04-04-2022</time></h3>
+    <article>
+        <h3 id="name">Mohammad</h3>
+        <i title="latest position">Software Engineer</i>
+        <p>Birzeit</p>
+        <p>Palestine</p>
+    </article>
+    <hr/>
+    <article>
+        <h3>This displays some paragraphs</h3>
+        <p>This is the paragraph number 1</p>
+        <p class="middle">This is the paragraph number 2</p>
+        <p>This is the paragraph number 3</p>
+    </article>
+    <hr/>
+    <footer>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="contact-us.html">Contact Us</a></li>
+        </ul>
+    </footer>
+</div>
+            </aside>
+        </main>
+    </body>
+</html>
