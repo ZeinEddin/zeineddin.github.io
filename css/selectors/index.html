@@ -9,7 +9,11 @@
         <script type="text/javascript">
             $(function() {
                 $('#apply').click(function() {
-                    $('#reset').click();
+                    $('#new-style').remove();
+                    $('section').text($('aside').html());
+                    document.querySelectorAll('section').forEach((el) => {
+                        hljs.highlightElement(el);
+                    });
                     if ($('#selector').val().trim() != '') {
                         var style = $('<style id="new-style"> aside ' + $('#selector').val() + ' { background-color: yellow; }</style>');
                         $('html > head').append(style);
