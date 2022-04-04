@@ -10,8 +10,20 @@
             $(function() {
                 $('#apply').click(function() {
                     if ($('#selector').val().trim() != '') {
-                        var style = $('<style id="new"> aside ' + $('#selector').val() + ' { background-color: yellow; }</style>');
+                        var style = $('<style id="new-style"> aside ' + $('#selector').val() + ' { background-color: yellow; }</style>');
                         $('html > head').append(style);
+                        
+                        var encodedStr = $('section').text().replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+                           return '&#'+i.charCodeAt(0)+';';
+                        });
+                        $($('#selector').val()).each(function () {
+                            var selectedHTML = $(this).prop('outerHTML');
+                            var selectedHTML = selectedHTML.replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+                               return '&#'+i.charCodeAt(0)+';';
+                            });
+                            encodedStr = encodedStr.replace(selectedHTML, '<span data-selected="true" style="background-color:rgba(255,0,0,.2)">' + selectedHTML + '</span>')
+                        });
+                        $('section').html(encodedStr);
                     }
                 });
                 $('#selector').on('keypress',function(e) {
@@ -21,13 +33,12 @@
                 });
                 $('#reset').click(function() {
                     $('#selector').val('');
-                    $('#new').remove();
-                    //location.reload();
-                });
-                $('section').text($('aside').html());
-                document.querySelectorAll('section').forEach((el) => {
-                    hljs.highlightElement(el);
-                });
+                    $('#new-style').remove();
+                    $('section').text($('aside').html());
+                    document.querySelectorAll('section').forEach((el) => {
+                        hljs.highlightElement(el);
+                    });
+                }).click();
             });
         </script>
         <style type="text/css">
