@@ -10,15 +10,15 @@
             $(function() {
                 $('#apply').click(function() {
                     $('#new-style').remove();
-                    $('section').text($('aside').html());
-                    document.querySelectorAll('section').forEach((el) => {
+                    $('.section').text($('aside').html());
+                    document.querySelectorAll('.section').forEach((el) => {
                         hljs.highlightElement(el);
                     });
                     if ($('#selector').val().trim() != '') {
                         var style = $('<style id="new-style"> aside ' + $('#selector').val() + ' { background-color: yellow; color: green; }</style>');
                         $('html > head').append(style);
                         
-                        var encodedStr = $('section').text().replace(/[\u00A0-\u9999<>\&]/g, function(i) {
+                        var encodedStr = $('.section').text().replace(/[\u00A0-\u9999<>\&]/g, function(i) {
                            return '&#'+i.charCodeAt(0)+';';
                         });
                         $($('#selector').val()).each(function () {
@@ -28,7 +28,7 @@
                             });
                             encodedStr = encodedStr.replace(selectedHTML, '<span data-selected="true" style="background-color:rgba(255,0,0,.2);color:green;">' + selectedHTML + '</span>')
                         });
-                        $('section').html(encodedStr);
+                        $('.section').html(encodedStr);
                     }
                 });
                 $('#selector').on('keypress',function(e) {
@@ -39,8 +39,8 @@
                 $('#reset').click(function() {
                     $('#selector').val('');
                     $('#new-style').remove();
-                    $('section').text($('aside').html());
-                    document.querySelectorAll('section').forEach((el) => {
+                    $('.section').text($('aside').html());
+                    document.querySelectorAll('.section').forEach((el) => {
                         hljs.highlightElement(el);
                     });
                 }).click();
@@ -57,11 +57,11 @@
                 display: flex;
                 justify-content: space-around;
             }
-            section, aside {
+            .section, aside {
                 padding: 0 1%;
                 flex-grow: 1;
             }
-            section {
+            .section {
                 white-space: pre;
                 border-right: 1px solid black;
                 font-family: 'Courier New', monospace;
@@ -78,9 +78,9 @@
             <button id="reset">Reset</button>
         </header>
         <main>
-            <section>
+            <div class="section">
                 
-            </section>
+            </div>
             <aside>
 <div>
     <nav>
